@@ -7,11 +7,13 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const api = axios.create({
-  baseURL: '/api', // Proxied through Vite to http://localhost:5000/api
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 });
+
 
 // Request interceptor: Add auth token to requests
 api.interceptors.request.use(

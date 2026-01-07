@@ -27,14 +27,31 @@ connectDB();
 app.use(helmet());
 
 // CORS: Enable Cross-Origin Resource Sharing
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',')
+  : [];
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true
+  origin: (origin, callback) => {
+    // Allow requests with no origin (Postman, curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 
 // Body parser: Parse JSON request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.enable('trust proxy');
 
 // Rate limiting: Prevent abuse by limiting requests
 const limiter = rateLimit({
