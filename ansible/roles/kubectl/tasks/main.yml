@@ -1,0 +1,13 @@
+---
+- name: Check kubectl
+  command: kubectl version --client
+  register: kubectl_check
+  ignore_errors: true
+
+- name: Install kubectl if missing
+  shell: |
+    curl -fsSL https://storage.googleapis.com/kubernetes-release/release/stable.txt -o v.txt
+    curl -fsSL https://storage.googleapis.com/kubernetes-release/release/$(cat v.txt)/bin/linux/amd64/kubectl -o kubectl
+    install -m 0755 kubectl /usr/local/bin/kubectl
+    rm kubectl v.txt
+  when: kubectl_check.failed

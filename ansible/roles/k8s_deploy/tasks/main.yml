@@ -1,0 +1,10 @@
+---
+- name: Create namespace
+  command: kubectl create namespace teamfinder
+  ignore_errors: true
+
+- name: Apply backend deployment
+  command: kubectl apply -f k8s/backend.yaml
+
+- name: Apply frontend deployment
+  command: kubectl apply -f k8s/frontend.yaml

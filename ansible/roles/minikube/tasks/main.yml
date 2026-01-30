@@ -1,0 +1,12 @@
+---
+- name: Check Minikube
+  command: minikube version
+  register: minikube_check
+  ignore_errors: true
+
+- name: Install Minikube if missing
+  shell: |
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    install minikube-linux-amd64 /usr/local/bin/minikube
+    rm minikube-linux-amd64
+  when: minikube_check.failed

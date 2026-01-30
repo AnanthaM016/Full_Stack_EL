@@ -1,0 +1,12 @@
+---
+- name: Setup DevOps infrastructure
+  hosts: local
+  become: true
+
+  roles:
+    - common
+    - docker
+    - docker_compose
+    - kubectl
+    - minikube
+    - jenkins

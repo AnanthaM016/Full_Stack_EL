@@ -1,0 +1,7 @@
+---
+- name: Deploy application to Kubernetes
+  hosts: local
+  become: true
+
+  roles:
+    - k8s_deploy

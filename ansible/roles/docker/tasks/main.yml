@@ -1,0 +1,17 @@
+---
+- name: Check Docker installation
+  command: docker --version
+  register: docker_check
+  ignore_errors: true
+
+- name: Install Docker if missing
+  apt:
+    name: docker.io
+    state: present
+  when: docker_check.failed
+
+- name: Enable and start Docker
+  systemd:
+    name: docker
+    enabled: true
+    state: started

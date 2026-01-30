@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: anantha15/teamfinder-frontend:2.0
+          image: anantha15/teamfinder-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80

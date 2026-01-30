@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: anantha15/teamfinder-backend:2.0
+          image: anantha15/teamfinder-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

@@ -1,0 +1,11 @@
+---
+- name: Check Docker Compose plugin
+  command: docker compose version
+  register: compose_check
+  ignore_errors: true
+
+- name: Install Docker Compose plugin if missing
+  apt:
+    name: docker-compose-plugin
+    state: present
+  when: compose_check.failed

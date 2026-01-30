@@ -1,0 +1,10 @@
+---
+- name: Install base system packages
+  apt:
+    name:
+      - curl
+      - git
+      - ca-certificates
+      - apt-transport-https
+    state: present
+    update_cache: yes
